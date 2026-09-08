@@ -1,98 +1,88 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, StyleSheet, Image} from 'react-native'
+import React from 'react'
+import Feather from '@expo/vector-icons/Feather';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+
+
+const index = () => {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <View>
+      <View style={styles.container}>
+        <View>
+          <Image style={styles.imgLogo} source={require('../../imgs/Logo.png')} />
+        </View>
+        <View style={styles.seachAndCart}>
+          <Text><Feather name="search" size={24} color="white" /></Text>
+          <Text><AntDesign name="shopping-cart" size={24} color="white" /></Text>
+        </View>
+      </View>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
-  );
+      <View style = {styles.bodyBookStore}>
+        <View>
+          <Image style={styles.biaSach} source={require("../../imgs/mau-bia-sach-dep.png")}/>
+        </View>
+        <View style = {styles.thongTinSach}>
+          <Text numberOfLines={2}>Tên sách mẫu có tiêu đề dài để kiểm tra hiển thị</Text>
+          <Text>Tac gia</Text>
+          <Text>Gia</Text>
+        </View>
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    paddingHorizontal: 16,
+    backgroundColor: 'indigo',
+    height: 56,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
+
+  seachAndCart: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+    // paddingHorizontal: 16
+  },
+
+  textColor: {
+    color: "white",
+    fontSize: 16,
+  },
+
+  imgLogo: {
+    width: 80,
+    height: 40,
+    // resizeMode: "contain"
+
+  },
+
+  bodyBookStore: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+
+  biaSach: {
+    height: 100,
+    width: 80,
+    borderRadius: 10,
+  },
+
+  thongTinSach: {
+    justifyContent: "space-between",
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
+    flexDirection: "column",
+    marginLeft: 40,
+    height: 110,
+  }
+})
+
+export default index
